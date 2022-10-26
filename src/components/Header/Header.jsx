@@ -8,6 +8,10 @@ import userIcon from "../../assets/images/user-icon.png";
 import { useSelector } from "react-redux";
 import useAuth from "../../custom-hooks/useAuth";
 import { Link } from "react-router-dom";
+import { ref } from "firebase/storage";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase.config";
+import { toast } from "react-toastify";
 
 const nav__links = [
   {
@@ -25,6 +29,7 @@ const nav__links = [
 ];
 
 const Header = () => {
+  const profileActionRef = useRef();
   const navigate = useNavigate();
   const headerRef = useRef(null);
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
@@ -44,6 +49,17 @@ const Header = () => {
     });
   };
 
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Logged out");
+        navigate("/home");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   useEffect(() => {
     stickyHeaderHandler();
 
@@ -54,6 +70,9 @@ const Header = () => {
     navigate("/cart");
   };
 
+  const profileActionToggleHandler = () =>
+    profileActionRef.current.classList.toggle("active__profileAction");
+
   return (
     <header className="header" ref={headerRef}>
       <Container>
@@ -61,9 +80,11 @@ const Header = () => {
           <div className="nav__wrapper">
             <div className="logo">
               <img src={logo} alt="logo" />
-              <div>
-                <h1>Multimart</h1>
-              </div>
+              <Link to="home">
+                <div>
+                  <h1>Multimart</h1>
+                </div>
+              </Link>
             </div>
             <div className="navigation">
               <ul className="menu">
@@ -83,11 +104,11 @@ const Header = () => {
             </div>
             <div className="nav__icons">
               <span className="fav__icon">
-                <i class="ri-heart-line"></i>
+                <i className="ri-heart-line"></i>
                 <span className="badge">1</span>
               </span>
               <span className="cart__icon" onClick={navigateToCart}>
-                <i class="ri-shopping-bag-line"></i>
+                <i className="ri-shopping-bag-line"></i>
                 <span className="badge">{totalQuantity}</span>
               </span>
 
@@ -96,11 +117,16 @@ const Header = () => {
                   whileTap={{ scale: 1.5 }}
                   src={currentUser ? currentUser.photoURL : userIcon}
                   alt=""
+                  onClick={profileActionToggleHandler}
+                  onBlur={profileActionToggleHandler}
                 />
-
-                <div className="profile__actions">
+                <div
+                  className="profile__actions"
+                  ref={profileActionRef}
+                  onClick={profileActionToggleHandler}
+                >
                   {currentUser ? (
-                    <span>Logout</span>
+                    <span onClick={logout}>Logout</span>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">
                       <Link to="/signup">SignUp</Link>
@@ -112,7 +138,7 @@ const Header = () => {
             </div>
             <div className="mobile__menu">
               <span>
-                <i class="ri-menu-line"></i>
+                <i className="ri-menu-line"></i>
               </span>
             </div>
           </div>

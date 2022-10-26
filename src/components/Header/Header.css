@@ -83,7 +83,6 @@
   width: 150px;
   z-index: 10;
   padding: 15px;
-  display: flex;
   align-items: center;
   flex-direction: column;
   background: var(--card-bg-01);
@@ -92,7 +91,7 @@
   cursor: pointer;
 }
 
-.active__profileAction {
+.nav__icons .profile .profile__actions.active__profileAction {
   display: block;
 }
 

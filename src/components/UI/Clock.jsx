@@ -9,7 +9,7 @@ const Clock = () => {
   let interval;
 
   const countDown = () => {
-    const destination = new Date("Oct 10, 2022").getTime();
+    const destination = new Date("Oct 29, 2022").getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -31,9 +31,9 @@ const Clock = () => {
     });
   };
 
-  //   useEffect(() => {
-  //     countDown();
-  //   }, []);
+  useEffect(() => {
+    countDown();
+  }, []);
 
   return (
     <div className="clock__wrapper d-flex align-items-center gap-3">

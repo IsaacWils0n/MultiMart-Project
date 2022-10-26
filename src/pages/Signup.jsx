@@ -103,10 +103,10 @@ const Signup = () => {
                   />
                 </FormGroup>
                 <FormGroup className="form__group">
-                  <input
+                  {/* <input
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
-                  />
+                  /> */}
                 </FormGroup>
                 <button className="buy__btn auth__btn">
                   Create an Account

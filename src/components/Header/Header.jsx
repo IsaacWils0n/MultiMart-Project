@@ -8,7 +8,6 @@ import userIcon from "../../assets/images/user-icon.png";
 import { useSelector } from "react-redux";
 import useAuth from "../../custom-hooks/useAuth";
 import { Link } from "react-router-dom";
-import { ref } from "firebase/storage";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
 import { toast } from "react-toastify";

@@ -17,7 +17,7 @@ const services = () => {
                 style={{ background: `${item.bg}` }}
               >
                 <span>
-                  <i class={item.icon}></i>
+                  <i className={item.icon}></i>
                 </span>
                 <div>
                   <h3>{item.title}</h3>
